@@ -1,5 +1,6 @@
 # HumansTools
-## Monitoring Humans Validator
+## Monitoring Humans Validator - Testnet - Humans_3000-23
+https://humans-testnet-dashboard.stake2earn.com/
 
 ## Scope of this repo
 
