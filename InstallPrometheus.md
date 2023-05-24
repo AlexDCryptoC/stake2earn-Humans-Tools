@@ -2,37 +2,37 @@
 
 ### Verify Prometheus available versions
 ```
-sudo apt-cache policy prometheus  
+sudo apt-cache policy prometheus
 ```
 
 ### Create your Prometheus user  
 ```
-sudo useradd -M -r -s /bin/false prometheus  
+sudo useradd -M -r -s /bin/false prometheus
 ```
 
 ### Create your Prometheus directories  
 ```
-sudo mkdir /etc/prometheus /var/lib/prometheus  
+sudo mkdir /etc/prometheus /var/lib/prometheus
 ```
 
 ### Dowload Prometheus binaries  
 ```
-wget https://github.com/prometheus/prometheus/releases/download/v2.43.0/prometheus-2.43.0.linux-amd64.tar.gz  
+wget https://github.com/prometheus/prometheus/releases/download/v2.43.0/prometheus-2.43.0.linux-amd64.tar.gz
 ```
 
 ### Extract and Install the binary  
 ```
-tar xzf prometheus-2.43.0.linux-amd64.tar.gz  
-sudo cp prometheus-2.43.0.linux-amd64/{prometheus,promtool} /usr/local/bin/  
-sudo chown prometheus:prometheus /usr/local/bin/{prometheus,promtool}  
-sudo cp -r prometheus-2.43.0.linux-amd64/{consoles,console_libraries} /etc/prometheus/  
+tar xzf prometheus-2.43.0.linux-amd64.tar.gz
+sudo cp prometheus-2.43.0.linux-amd64/{prometheus,promtool} /usr/local/bin/
+sudo chown prometheus:prometheus /usr/local/bin/{prometheus,promtool}
+sudo cp -r prometheus-2.43.0.linux-amd64/{consoles,console_libraries} /etc/prometheus/
 ```
 
 
 ### Setup the configuration for Prometheus
 ```
-sudo cp prometheus-2.43.0.linux-amd64/prometheus.yml /etc/prometheus/prometheus.yml  
-sudo nano /etc/prometheus/prometheus.yml  
+sudo cp prometheus-2.43.0.linux-amd64/prometheus.yml /etc/prometheus/prometheus.yml
+sudo nano /etc/prometheus/prometheus.yml
 ```
 
 ### Configuration section for Prometheus scraping  
@@ -65,35 +65,35 @@ sudo nano /etc/systemd/system/prometheus.service
 ```
 Now copy the section below:  
 ```
-[Unit]  
-Description=Prometheus Time Series Collection and Processing Server  
-Wants=network-online.target  
-After=network-online.target  
+[Unit]
+Description=Prometheus Time Series Collection and Processing Server
+Wants=network-online.target
+After=network-online.target
   
-[Service]  
-User=prometheus  
-Group=prometheus  
-Type=simple  
-ExecStart=/usr/local/bin/prometheus \  
-    --config.file /etc/prometheus/prometheus.yml \  
-    --storage.tsdb.path /var/lib/prometheus/ \  
-    --web.console.templates=/etc/prometheus/consoles \  
-    --web.console.libraries=/etc/prometheus/console_libraries\  
-    --web.listen-address="0.0.0.0:9090"  
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ExecStart=/usr/local/bin/prometheus \
+    --config.file /etc/prometheus/prometheus.yml \
+    --storage.tsdb.path /var/lib/prometheus/ \
+    --web.console.templates=/etc/prometheus/consoles \
+    --web.console.libraries=/etc/prometheus/console_libraries \
+    --web.listen-address="0.0.0.0:9090"
   
-[Install]  
-WantedBy=multi-user.target  
+[Install]
+WantedBy=multi-user.target
 ```
   
-### At startup enable Prometheus  
+### At startup enable Prometheus
 ```
-sudo systemctl enable prometheus  
+sudo systemctl enable prometheus
 ```
 ### Start service for Prometheus  
 ```
-sudo systemctl start prometheus  
+sudo systemctl start prometheus
 ```
 ### Check Prometheus service status
 ```
-sudo systemctl status prometheus  
+sudo systemctl status prometheus
 ```
